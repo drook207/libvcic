@@ -31,14 +31,14 @@ repos:
         name: cmake-format
         entry: cmake-format
         language: python
-        additional_dependencies: [cmakelang]
+        additional_dependencies: [cmakelang, PyYAML]
         files: '(CMakeLists\.txt|\.cmake)$'
         args: [--config-file=.cmake-format.yaml, --in-place]
       - id: cmake-lint
         name: cmake-lint
         entry: cmake-lint
         language: python
-        additional_dependencies: [cmakelang]
+        additional_dependencies: [cmakelang, PyYAML]
         files: '(CMakeLists\.txt|\.cmake)$'
         args: [--config-file=.cmake-format.yaml]
 
@@ -80,10 +80,22 @@ repos:
       # Run `cmake --preset clang-debug` once before using this hook.
       - id: clang-tidy
         name: clang-tidy
-        entry: clang-tidy
+        # Skips gracefully when builds/clang/debug/compile_commands.json is
+        # absent. Run `cmake --preset clang-debug` once to enable this hook.
+        # The Clang preset generates a compile DB without -mno-direct-extern-access
+        # (a GCC-only Qt6 flag that causes a hard error when passed to Clang).
+        # gui/ is excluded because Qt6::Widgets is not in the default compile DB
+        # (VCIC_BUILD_GUI=OFF); reconfigure with -DVCIC_BUILD_GUI=ON to include it.
+        entry: >-
+          bash -c '
+          DB=builds/clang/debug/compile_commands.json;
+          if [ ! -f "$DB" ]; then
+            echo "clang-tidy: skipped — run cmake --preset clang-debug first";
+            exit 0;
+          fi;
+          exec clang-tidy --config-file=.clang-tidy -p=builds/clang/debug "$@"
+          ' --
         language: system
         types_or: [c, c++]
-        args:
-          - --config-file=.clang-tidy
-          - -p=builds/clang/debug
+        exclude: '^gui/'
         require_serial: true

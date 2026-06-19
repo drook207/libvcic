@@ -1,0 +1,11 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Propagate Qt6 dependencies that are part of the public interface.
+# Extend the COMPONENTS list when additional Qt modules are linked publicly.
+find_dependency(Qt6 COMPONENTS Core Network)
+
+include("${CMAKE_CURRENT_LIST_DIR}/VCICTargets.cmake")
+
+check_required_components(vcic-protocol vcic-transport)

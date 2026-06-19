@@ -19,7 +19,6 @@ format:
   enable_sort: true
   autosort: false
   require_valid_layout: false
-  layout_passes: 2
 
 parse:
   additional_commands:
