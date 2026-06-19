@@ -1,0 +1,75 @@
+---
+BasedOnStyle: WebKit
+Language: Cpp
+Standard: c++20
+
+ColumnLimit: 120
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Qt uses Type* name convention
+PointerAlignment: Left
+ReferenceAlignment: Left
+
+# Brace style: WebKit puts function/class braces on new line,
+# control-flow braces inline
+BreakBeforeBraces: WebKit
+
+# Short forms
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortLambdasOnASingleLine: All
+
+# Break long lines at sensible points
+AlignAfterOpenBracket: Align
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerIndentWidth: 4
+PackConstructorInitializers: Never
+
+AlwaysBreakTemplateDeclarations: Yes
+AlwaysBreakAfterReturnType: None
+
+# Namespace
+NamespaceIndentation: None
+CompactNamespaces: false
+
+# Include ordering — project headers, then Qt, then system
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^".*"'
+    Priority: 1
+    SortPriority: 1
+  - Regex: '^<Q[A-Z]'
+    Priority: 2
+    SortPriority: 2
+  - Regex: '^<.*>'
+    Priority: 3
+    SortPriority: 3
+
+# Spacing
+SpaceAfterCStyleCast: false
+SpaceBeforeCpp11BracedList: false
+SpaceInEmptyParentheses: false
+SpaceBeforeParens: ControlStatements
+SpacesInAngles: Never
+SpacesInSquareBrackets: false
+
+# Trailing commas in multi-line constructs
+InsertTrailingCommas: None
+
+# Qualifiers (const, volatile) — keep as written
+QualifierAlignment: Leave
+
+# Penalties (control where clang-format prefers to break)
+PenaltyBreakBeforeFirstCallParameter: 19
+PenaltyReturnTypeOnItsOwnLine: 200
+PenaltyBreakTemplateDeclaration: 10

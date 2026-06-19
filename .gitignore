@@ -1,0 +1,69 @@
+# Build output (matches CMakePresets binaryDir pattern)
+builds/
+build/
+out/
+cmake-build-*/
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+_deps/
+install_manifest.txt
+# Keep CMakeLists.txt and CMakePresets.json
+*.cmake
+!CMakeLists.txt
+!CMakePresets.json
+!CMakeUserPresets.json
+
+# Qt / MOC generated
+*.moc
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+*.qmlc
+*.jsc
+.qmake.stash
+*.qmake.cache
+
+# Compiled / linked output
+*.o
+*.obj
+*.so
+*.so.*
+*.a
+*.la
+*.lib
+*.dll
+*.dylib
+*.exe
+
+# clangd / compile commands
+compile_commands.json
+.cache/
+.clangd/
+
+# IDE
+.vscode/
+.idea/
+*.user
+*.user.*
+*.creator
+*.creator.user
+.kdev4/
+*.kdev4
+*.cbp
+*.sublime-project
+*.sublime-workspace
+
+# pre-commit cache
+.pre-commit-cache/
+
+# Misc
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
