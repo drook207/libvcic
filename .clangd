@@ -1,0 +1,5 @@
+CompileFlags:
+  Remove:
+    # GCC-only flag added by Qt6's CMake integration.
+    # Clang and clangd do not recognise it.
+    - -mno-direct-extern-access
