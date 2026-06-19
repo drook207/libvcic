@@ -1,0 +1,225 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "linux-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_C_FLAGS_PROFILE": "-O2 -g -pg -DNDEBUG",
+        "CMAKE_CXX_FLAGS_PROFILE": "-O2 -g -pg -DNDEBUG",
+        "CMAKE_EXE_LINKER_FLAGS_PROFILE": "-pg",
+        "CMAKE_SHARED_LINKER_FLAGS_PROFILE": "-pg",
+        "CMAKE_MODULE_LINKER_FLAGS_PROFILE": "-pg",
+        "CMAKE_INSTALL_PREFIX": "${sourceDir}/install"
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      }
+    },
+    {
+      "name": "gcc-base",
+      "hidden": true,
+      "inherits": "linux-base",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "clang-base",
+      "hidden": true,
+      "inherits": "linux-base",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "debug-base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "relwithdebug-base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "profile-base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Profile"
+      }
+    },
+    {
+      "name": "release-base",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "gcc-debug",
+      "displayName": "GCC Debug",
+      "inherits": [
+        "debug-base",
+        "gcc-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/gcc/debug"
+    },
+    {
+      "name": "gcc-relwithdebug",
+      "displayName": "GCC RelWithDebInfo",
+      "inherits": [
+        "relwithdebug-base",
+        "gcc-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/gcc/relwithdebug"
+    },
+    {
+      "name": "gcc-profile",
+      "displayName": "GCC Profile (gprof)",
+      "inherits": [
+        "profile-base",
+        "gcc-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/gcc/profile"
+    },
+    {
+      "name": "gcc-release",
+      "displayName": "GCC Release",
+      "inherits": [
+        "release-base",
+        "gcc-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/gcc/release"
+    },
+    {
+      "name": "clang-debug",
+      "displayName": "Clang Debug",
+      "inherits": [
+        "debug-base",
+        "clang-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/clang/debug"
+    },
+    {
+      "name": "clang-relwithdebug",
+      "displayName": "Clang RelWithDebInfo",
+      "inherits": [
+        "relwithdebug-base",
+        "clang-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/clang/relwithdebug"
+    },
+    {
+      "name": "clang-profile",
+      "displayName": "Clang Profile (gprof)",
+      "inherits": [
+        "profile-base",
+        "clang-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/clang/profile"
+    },
+    {
+      "name": "clang-release",
+      "displayName": "Clang Release",
+      "inherits": [
+        "release-base",
+        "clang-base"
+      ],
+      "binaryDir": "${sourceDir}/builds/clang/release"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "gcc-debug",
+      "configurePreset": "gcc-debug"
+    },
+    {
+      "name": "gcc-relwithdebug",
+      "configurePreset": "gcc-relwithdebug"
+    },
+    {
+      "name": "gcc-profile",
+      "configurePreset": "gcc-profile"
+    },
+    {
+      "name": "gcc-release",
+      "configurePreset": "gcc-release"
+    },
+    {
+      "name": "clang-debug",
+      "configurePreset": "clang-debug"
+    },
+    {
+      "name": "clang-relwithdebug",
+      "configurePreset": "clang-relwithdebug"
+    },
+    {
+      "name": "clang-profile",
+      "configurePreset": "clang-profile"
+    },
+    {
+      "name": "clang-release",
+      "configurePreset": "clang-release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "gcc-debug",
+      "configurePreset": "gcc-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "gcc-relwithdebug",
+      "configurePreset": "gcc-relwithdebug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "gcc-release",
+      "configurePreset": "gcc-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "clang-debug",
+      "configurePreset": "clang-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "clang-relwithdebug",
+      "configurePreset": "clang-relwithdebug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "clang-release",
+      "configurePreset": "clang-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}
