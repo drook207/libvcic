@@ -22,19 +22,56 @@ repos:
         args: [--style=file]
 
   # CMake formatting and linting
-  - repo: https://github.com/cheshirekow/cmake_format
-    rev: v0.6.13
+  # cmakelang is the pip package that ships both cmake-format and cmake-lint.
+  # cheshirekow/cmake_format has no .pre-commit-hooks.yaml, so we install
+  # the package directly into the pre-commit environment instead.
+  - repo: local
     hooks:
       - id: cmake-format
-        args: [--config-files, .cmake-format.yaml]
+        name: cmake-format
+        entry: cmake-format
+        language: python
+        additional_dependencies: [cmakelang]
+        files: '(CMakeLists\.txt|\.cmake)$'
+        args: [--config-file=.cmake-format.yaml, --in-place]
       - id: cmake-lint
-        args: [--config-files, .cmake-format.yaml]
+        name: cmake-lint
+        entry: cmake-lint
+        language: python
+        additional_dependencies: [cmakelang]
+        files: '(CMakeLists\.txt|\.cmake)$'
+        args: [--config-file=.cmake-format.yaml]
 
-  # QML formatting
-  - repo: https://github.com/tomas-krupa/qmlformat-hook
-    rev: 1.2.0
+  # Commit message convention (Conventional Commits)
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args:
+          - feat
+          - fix
+          - docs
+          - style
+          - refactor
+          - perf
+          - test
+          - build
+          - ci
+          - chore
+          - revert
+
+  # QML formatting — uses the system qmlformat shipped with Qt6.
+  # tomas-krupa/qmlformat-hook pins PySide6-Essentials==6.9.1 which requires
+  # Python <3.14 and is therefore incompatible with this system (Python 3.14).
+  - repo: local
     hooks:
       - id: qmlformat
+        name: qmlformat
+        entry: qmlformat
+        language: system
+        files: \.qml$
+        args: [--inplace]
 
   # Local hooks that depend on system tools (clang-tidy)
   - repo: local
