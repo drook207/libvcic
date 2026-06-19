@@ -11,8 +11,6 @@ cmake_install.cmake
 CTestTestfile.cmake
 _deps/
 install_manifest.txt
-# Keep CMakeLists.txt and CMakePresets.json
-*.cmake
 !CMakeLists.txt
 !CMakePresets.json
 !CMakeUserPresets.json
